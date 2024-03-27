@@ -19,7 +19,7 @@ int _printf(const char *format, ...)
         {
             if (*(format + 1) == '%')
             {
-                count += _putchar('%'); // Print a single % character
+                count += _putchar('%'); /* Print a single % character */
                 format += 2; // Skip both % characters
                 continue;
             }
