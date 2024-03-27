@@ -39,7 +39,6 @@ int _printf(const char *format, ...)
                     count += _putchar('%');
                     break;
                 default:
-                    // Unsupported conversion specifier, ignore it
                     break;
             }
         }
