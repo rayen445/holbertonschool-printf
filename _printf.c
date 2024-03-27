@@ -23,8 +23,14 @@ int _printf(const char *format, ...)
                 format += 2; /* Skip both % characters */
                 continue;
             }
+            else if (*(format + 1) == 'c')
+            {
+                count += _putchar(va_arg(args, int)); /* Print character */
+                format += 2; /* Skip both % and character specifier */
+                continue;
+            }
         }
-        count += _putchar(*format);
+        count += _putchar(*format); /* Print regular character */
         format++;
     }
 
