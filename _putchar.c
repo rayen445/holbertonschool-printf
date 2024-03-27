@@ -10,5 +10,5 @@
 int _putchar(char c)
 {
     /* Implementation of _putchar function */
-    return (write(1, &c, 1)); // Assuming file descriptor 1 is stdout
+    return (write(1, &c, 1)); /* Assuming file descriptor 1 is stdout */
 }

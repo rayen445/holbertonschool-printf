@@ -9,4 +9,7 @@
 int _printf(const char *format, ...)
 {
     /* Implementation of _printf function */
+    int count = 0;
+    // Implement your code here
+    return count;
 }
