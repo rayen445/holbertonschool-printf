@@ -18,30 +18,13 @@ int _printf(const char *format, ...)
         if (*format == '%')
         {
             format++;
-            switch (*format)
+            if (*format == '%')
             {
-                case 'c':
-                    count += _putchar(va_arg(args, int));
-                    break;
-                case 's':
-                    {
-                        char *str = va_arg(args, char *);
-                        if (str == NULL)
-                            str = "(null)";
-                        while (*str != '\0')
-                        {
-                            count += _putchar(*str);
-                            str++;
-                        }
-                        break;
-                    }
-                case '%':
-                    count += _putchar('%');
-                    break;
-                default:
-                    count += _putchar('%');
-                    count += _putchar(*format);
-                    break;
+                count += _putchar('%');  // Print a single % character
+            }
+            else
+            {
+                // Unsupported conversion specifier, ignore it
             }
         }
         else
