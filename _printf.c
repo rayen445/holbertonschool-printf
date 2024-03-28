@@ -6,11 +6,13 @@
  *
  */
 int _printf(const char *format, ...)
-{
-    va_list args;
-    int count = 0;
 
-    va_start(args, format);
+{
+   va_list args;
+   int count = 0;
+
+
+     va_start(args, format);
 
     while (*format != '\0')
     {
@@ -18,39 +20,41 @@ int _printf(const char *format, ...)
         {
             format++;
             switch (*format)
+
             {
                 case 'c':
                     count += _putchar(va_arg(args, int));
                     break;
-                case 's':
+               case 's':
+
                     {
-                        char *str = va_arg(args, char *);
-                        if (str == NULL)
+                         char *str = va_arg(args, char *);
+                         if (str == NULL)
                             str = "(null)";
                         while (*str != '\0')
                         {
-                            count += _putchar(*str);
+                          count += _putchar(*str);
                             str++;
                         }
-                        break;
+                         break;
                     }
-                case '%':
+              case '%':
                     count += _putchar('%');
                     break;
-                default:
+                 default:
                     count += _putchar('%');
                     count += _putchar(*format);
                     break;
             }
         }
-        else
+    else
         {
-            count += _putchar(*format);
+              count += _putchar(*format);
         }
         format++;
     }
 
-    va_end(args);
+      va_end(args);
 
     return count;
 }
