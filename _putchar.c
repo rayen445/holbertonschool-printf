@@ -1,13 +1,57 @@
-#include <unistd.h>
+#include "main.h"
 
 /**
- * _write - writes the character c to stdout
- * @c: The character to print
+ * _printf - Custom printf function
+ * @format: Format string
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: Number of characters printed (excluding the null byte)
  */
-int _write(char c)
+int _printf(const char *format, ...)
 {
-	return (write(1, &c, 1));
+    va_list args;
+    int count = 0;
+
+    va_start(args, format);
+
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
+            format++;
+            switch (*format)
+            {
+                case 'c':
+                    count += _putchar(va_arg(args, int));
+                    break;
+                case 's':
+                    {
+                        char *str = va_arg(args, char *);
+                        if (str == NULL)
+                            str = "(null)";
+                        while (*str != '\0')
+                        {
+                            count += _putchar(*str);
+                            str++;
+                        }
+                        break;
+                    }
+                case '%':
+                    count += _putchar('%');
+                    break;
+                default:
+                    count += _putchar('%');
+                    count += _putchar(*format);
+                    break;
+            }
+        }
+        else
+        {
+            count += _putchar(*format);
+        }
+        format++;
+    }
+
+    va_end(args);
+
+    return count;
 }
