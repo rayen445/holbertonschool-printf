@@ -17,20 +17,37 @@ int _printf(const char *format, ...)
     {
         if (*format == '%')
         {
-            if (*(format + 1) == '%')
+            format++;
+            switch (*format)
             {
-                count += _putchar('%'); /* Print a single % character */
-                format += 2; /* Skip both % characters */
-                continue;
-            }
-            else if (*(format + 1) == 'c')
-            {
-                count += _putchar(va_arg(args, int)); /* Print character */
-                format += 2; /* Skip both % and character specifier */
-                continue;
+                case 'c':
+                    count += _putchar(va_arg(args, int));
+                    break;
+                case 's':
+                    {
+                        char *str = va_arg(args, char *);
+                        if (str == NULL)
+                            str = "(null)";
+                        while (*str != '\0')
+                        {
+                            count += _putchar(*str);
+                            str++;
+                        }
+                        break;
+                    }
+                case '%':
+                    count += _putchar('%');
+                    break;
+                default:
+                    count += _putchar('%');
+                    count += _putchar(*format);
+                    break;
             }
         }
-        count += _putchar(*format); /* Print regular character */
+        else
+        {
+            count += _putchar(*format);
+        }
         format++;
     }
 
