@@ -1,5 +1,4 @@
-#include <stdarg.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
  * _printf - Custom printf function
@@ -55,18 +54,4 @@ int _printf(const char *format, ...)
     va_end(args);
 
     return count;
-}
-
-int main(void)
-{
-    int chars_printed = _printf("%s\n", "Hello, world!");
-    printf("Number of characters printed: %d\n", chars_printed);
-
-    chars_printed = _printf("This is a character: %c\n", 'A');
-    printf("Number of characters printed: %d\n", chars_printed);
-
-    chars_printed = _printf("Printing a percent sign: %%\n");
-    printf("Number of characters printed: %d\n", chars_printed);
-
-    return (0);
 }
