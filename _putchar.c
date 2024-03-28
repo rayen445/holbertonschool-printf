@@ -1,57 +1,14 @@
 #include "main.h"
 
 /**
- * _printf - Custom printf function
- * @format: Format string
+ * _putchar - Custom putchar function
+ * @c: Character to print
  *
- * Return: Number of characters printed (excluding the null byte)
+ * Return: On success 1.
+ *         On error, -1 is returned.
  */
-int _printf(const char *format, ...)
+int _putchar(char c)
 {
-    va_list args;
-    int count = 0;
-
-    va_start(args, format);
-
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 'c':
-                    count += _putchar(va_arg(args, int));
-                    break;
-                case 's':
-                    {
-                        char *str = va_arg(args, char *);
-                        if (str == NULL)
-                            str = "(null)";
-                        while (*str != '\0')
-                        {
-                            count += _putchar(*str);
-                            str++;
-                        }
-                        break;
-                    }
-                case '%':
-                    count += _putchar('%');
-                    break;
-                default:
-                    count += _putchar('%');
-                    count += _putchar(*format);
-                    break;
-            }
-        }
-        else
-        {
-            count += _putchar(*format);
-        }
-        format++;
-    }
-
-    va_end(args);
-
-    return count;
+    /* Implementation of _putchar function */
+    return (write(1, &c, 1)); // Assuming file descriptor 1 is stdout
 }
