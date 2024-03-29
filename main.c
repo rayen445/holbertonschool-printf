@@ -1,53 +1,18 @@
-#include "main.h"
+#include "MAIN.h"
 
-int _printf(const char *format, ...)
+int main(void)
 {
-    va_list args;
-    int count = 0;
-    char c;
+    int num = 123;
+    char *str = "Hello, world!";
+    
+    // Test printing integers
+    _printf("Integer: %d\n", num);
+    
+    // Test printing strings
+    _printf("String: %s\n", str);
 
-    va_start(args, format);
+    // Test printing multiple values
+    _printf("Integer: %d, String: %s\n", num, str);
 
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 'c':
-                    c = (char) va_arg(args, int);
-                    write(1, &c, 1);
-                    count++;
-                    break;
-                case 's':
-                    {
-                        char *str = va_arg(args, char *);
-                        while (*str != '\0')
-                        {
-                            write(1, str, 1);
-                            str++;
-                            count++;
-                        }
-                        break;
-                    }
-                case '%':
-                    write(1, "%", 1);
-                    count++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        else
-        {
-            write(1, format, 1);
-            count++;
-        }
-        format++;
-    }
-
-    va_end(args);
-
-    return count;
+    return 0;
 }

@@ -1,60 +1,42 @@
-#include "main.h"
+#include "MAIN.h"
+#include <stdio.h>
 
 /**
- * _printf.c 
- *  Format 
- *
+ * _printf - Our own version of printf function
+ * @format: Format string containing the format specifiers
+ * Return: Number of characters printed (excluding the null byte)
  */
 int _printf(const char *format, ...)
-
 {
-   va_list args;
-   int count = 0;
+    va_list args;
+    const char *ptr = format;
+    int printed_chars = 0;
 
+    va_start(args, format);
 
-     va_start(args, format);
-
-    while (*format != '\0')
+    while (*ptr != '\0')
     {
-        if (*format == '%')
+        if (*ptr == '%')
         {
-            format++;
-            switch (*format)
-
+            ptr++; // Movepast '%'
+            if (*ptr == 'd' || *ptr == 'i')
             {
-                case 'c':
-                    count += _putchar(va_arg(args, int));
-                    break;
-               case 's':
-
-                    {
-                         char *str = va_arg(args, char *);
-                         if (str == NULL)
-                            str = "(null)";
-                        while (*str != '\0')
-                        {
-                          count += _putchar(*str);
-                            str++;
-                        }
-                         break;
-                    }
-              case '%':
-                    count += _putchar('%');
-                    break;
-                 default:
-                    count += _putchar('%');
-                    count += _putchar(*format);
-                    break;
+                int num = va_arg(args, int);
+                printed_chars += printf("%d", num);
+            }
+            else
+            {
+                // Hndle other converssion speifiers if necessary
             }
         }
-    else
+        else
         {
-              count += _putchar(*format);
+            putchar(*ptr);
+            printed_chars++;
         }
-        format++;
+        ptr++;
     }
 
-      va_end(args);
-
-    return count;
+    va_end(args);
+    return printed_chars;
 }
