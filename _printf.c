@@ -1,36 +1,42 @@
+#include "main.h"
 #include <stdarg.h>
-#include <stdio.h>
 
-int _printf(const char *format, ...);
-
-int main(void)
-{
-    int num = 123;
-    _printf("This is a number: %d\n", num);
-    return 0;
-}
-
+/**
+ * _printf - prints output according to a format
+ * @format: character string
+ *
+ * Return: number of characters printed
+ */
 int _printf(const char *format, ...)
 {
     va_list args;
-    va_start(args, format);
-
     int printed_chars = 0;
+
+    va_start(args, format);
 
     while (*format)
     {
-        if (*format == '%' && (*(format + 1) == 'd' || *(format + 1) == 'i'))
+        /* Handle regular characters */
+        if (*format != '%')
+        {
+            printed_chars += _putchar(*format);
+            format++;
+            continue;
+        }
+
+        /* Handle conversion specifiers */
+        format++; /* Skip '%' */
+        if (*format == 'd' || *format == 'i')
         {
             int num = va_arg(args, int);
-            printf("%d", num);
-            format++; // Skip 'd' or 'i'
-            printed_chars++;
+            printed_chars += print_number(num);
         }
         else
         {
-            putchar(*format);
-            printed_chars++;
+            printed_chars += _putchar('%');
+            printed_chars += _putchar(*format);
         }
+
         format++;
     }
 
